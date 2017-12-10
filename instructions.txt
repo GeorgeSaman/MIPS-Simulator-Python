@@ -1,0 +1,166 @@
+# NAME : GEORGE SAMAN
+# CWID : 802965368
+# RUN IT ON MY MACHINE!
+#
+# ori $s0, $s0, 1
+0x00000000 0x36100001 ori_$s0,_$s0,_2 
+#
+# ori $s1, $s1, 2 
+0x00000004 0x36310002 ori_$s1,_$s1,_2 
+#
+# ori $s2, $s2, 2
+0x00000008 0x36520002 ori_$s2,_$s2,_2 
+#
+# and $t0, $t0, $zero 
+0x0000000C 0x01004024 and_$t0,_$t0,_0 
+#
+# and $t1, $t1, $zero 
+0x00000010 0x01204824 and_$t1,_$t1,_0 
+#
+# and $t2, $t2, $zero 
+0x00000014 0x01405024 and_$t2,_$t2,_0 
+#
+# add $s3, $s3, $fp
+0x00000018 0x027E9820 add_$s3,_$s3,_$fp
+# 
+# addi $fp, $fp, 16 
+0x0000001C 0x23DE0010 addi_$fp,_$fp,_16 
+#
+# add $s4, $s4, $fp
+0x00000020 0x029EA020 add_$s4,_$s4,_$fp
+#
+# addi $fp, $fp, 8 
+0x00000024 0x23DE0008 addi_$fp,_$fp,_8 
+#
+# add $s5, $s5, $fp
+0x00000028 0x02BEA820 add_$s5,_$s5,_$fp
+# 
+# P_loop: 
+# beq $t0,$s0, P_done offset = 0x55
+0x0000002C 0x11100055 beq_$t0,_$s0,_P_done
+0x00000030 0x00000000 NOP
+0x00000034 0x00000000 NOP
+#
+# M_loop: 
+# beq $t1,$s1, M_done offset = 0x24
+0x00000038 0x11310024 beq_$t1,_$s1,_M_done
+0x0000003C 0x00000000 NOP
+0x00000040 0x00000000 NOP
+#
+# N_loop: 
+# beq $t2,$s2, N_done offset = 0x1C
+0x00000044 0x1152001C beq_$t2,_$s2,_N_done
+0x00000048 0x00000000 NOP
+0x0000004C 0x00000000 NOP
+#
+# multu $t1, $s2
+0x00000050 0x01320019 multu_$t1,_$s2
+#
+# mflo $t5
+0x00000054 0x00006812 mflo_$t5
+#
+# add $t5, $t5, $t2 
+0x00000058 0x01AA6820 add_$t5,_$t5,_$t2
+#
+# sll $t5, $t5, 2 
+0x0000005C 0x000D6880 sll_$t5,_$t5,_2
+#
+# add $t3, $s3, $t5
+0x00000060 0x026D5820 add_$t3,_$s3,_$t5
+#
+# lw   $t6, 0($t3)
+0x00000064 0x8D6E0000 lw_$t6,_0($t3)
+#
+# multu $t2, $s0
+0x00000068 0x01500019 multu_$t2,_$s0
+#
+# mflo $t5
+0x0000006C 0x00006812 mflo_$t5
+#
+# add $t5, $t5, $t0 
+0x00000070 0x01A86820 add_$t5,_$t5,_$t0
+#
+# sll $t5, $t5, 2 
+0x00000074 0x000D6880 sll_$t5,_$t5,_2
+#
+# add  $t3, $s4, $t5
+0x00000078 0x028D5820 add_$t3,_$s4,_$t5
+#
+# lw   $t7, 0($t3) 
+0x0000007C 0x8D6F0000 lw_$t7,_0($t3)
+#
+# multu $t1, $s0 
+0x00000080 0x01300019 multu_$t1,_$s0
+#
+# mflo $t5
+0x00000084 0x00006812 mflo_$t5
+#
+# add $t5, $t5, $t0 
+0x00000088 0x01A86820 add_$t5,_$t5,_$t0
+#
+# sll $t5, $t5, 2 
+0x0000008C 0x000D6880 sll_$t5,_$t5,_2
+#
+# add  $t3, $s5, $t5
+0x00000090 0x02AD5820 add_$t3,_$s5,_$t5
+#
+# lw   $t8, 0($t3) 
+0x00000094 0x8D780000 lw_$t8,_0($t3) 
+#
+# multu $t6, $t7
+0x00000098 0x01CF0019 multu_$t6,_$t7
+#
+# mflo $t4
+0x0000009C 0x00006012 mflo_$t4
+#
+# add $t9, $t4, $t8 
+0x000000A0 0x0198C820 add_$t9,_$t4,_$t8
+#
+0x000000A4 0x00000000 NOP
+0x000000A8 0x00000000 NOP
+# sw $t9, 0($t3)
+0x000000AC 0xAD790000 sw_$t9,_0($t3)
+#
+# addi $t2,$t2,1   
+0x000000B0 0x214A0001 addi_$t2,_$t2,_1
+#
+# beq %zero, %zero, N_loop offset = 0xFFE1
+0x000000B4 0x1000FFE1 beq_%zero,_%zero,_N_loop
+0x000000B8 0x00000000 NOP
+0x000000BC 0x00000000 NOP
+#
+# N_done:
+# addi $t1,$t1, 1 
+0x000000C0 0x21290001 addi_$t1,_$t1,_1 
+#
+# and $t2, $t2, $zero
+0x000000C4 0x01405024 and_$t2,_$t2,_$zero
+#
+# beq %zero, %zero, M_loop offset = 0xFFD9
+0x000000C8 0x1000FFD9 beq_%zero,_%zero,_M_loop
+0x000000CC 0x00000000 NOP
+0x000000D0 0x00000000 NOP
+#
+# M_done:
+# addi $t0,$t0, 1
+0x000000D4 0x21080001 addi_$t0,_$t0,_1
+#
+# and $t1, $t1, $zero 
+0x000000D8 0x01204824 and_$t1,_$t1,_$zero
+#
+# beq $zero, $zero P_loop offset = 0xFFD1
+0x000000DC 0x1000FFD1 beq_$zero,_$zero_P_loop
+0x000000E0 0x00000000 NOP
+0x000000E4 0x00000000 NOP
+#
+# P_done:
+0x000000E8 0x00000000 NOP
+0x000000E4 0x00000000 NOP
+0x000000BC 0x00000000 NOP
+0x000000C0 0x00000000 NOP
+0x000000C4 0x00000000 NOP
+0x000000C8 0x00000000 NOP
+0x000000CC 0x00000000 NOP
+0x000000D0 0x00000000 NOP
+0x000000D4 0x00000000 NOP
+0x000000D8 0x00000000 NOP
